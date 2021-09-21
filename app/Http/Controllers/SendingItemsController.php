@@ -7,6 +7,7 @@ use App\Models\DetailSendingItem;
 use App\Models\Good;
 use App\Models\SendingItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class SendingItemsController extends Controller
 {
@@ -28,9 +29,8 @@ class SendingItemsController extends Controller
      */
     public function create()
     {
-        $containers = Container::all();
         $goods = Good::all();
-        return view('pengiriman.create', compact('containers', 'goods'));
+        return view('pengiriman.create', compact('goods'));
     }
 
     /**
@@ -41,28 +41,34 @@ class SendingItemsController extends Controller
      */
     public function store(Request $request)
     {
-        $sendingItem = new SendingItem();
-        // $lastDetailSendingItemsId = SendingItem::latest()->first();
-        // if (!empty($lastDetailSendingItemsId->detailSendingItemsId)) {
-        //     $sendingItem->detailSendingItemsId = sprintf("%06d", ((int)$lastDetailSendingItemsId->detailSendingItemsId + 1));
-        // } else {
-        //     $sendingItem->detailSendingItemsId = "000001";
-        // }
-        $sendingItem->receiver = $request->receiver;
-        $sendingItem->save();
-
-        foreach ($request->detailSendingItems as $detail) {
-            $detailSendingItems = new DetailSendingItem;
-            $detailSendingItems->container_id = $sendingItem['id'];
-            $detailSendingItems->good_id = $detail['good_id'];
-            $detailSendingItems->qty = $detail['qty'];
-            // $detailSendingItems->foto = $detail['foto'];
-            $detailSendingItems->save();
-        }
-
-        return response()->json([
-            'success' => true
+        $request->validate([
+            "jenis" => "required",
+            "no_container" => "required",
+            "plat_nomor" => "required",
+            "po" => "required",
+            "good_id" => "required",
+            "keterangan" => "required",
+            "foto" => "required"
         ]);
+
+        $sendingItems = new SendingItem;
+        $sendingItems->tanggal = date("Y/m/d");
+        $sendingItems->jenis = $request->jenis;
+        $sendingItems->no_container = $request->no_container;
+        $sendingItems->plat_nomor = $request->plat_nomor;
+        $sendingItems->po = $request->po;
+        $sendingItems->good_id = $request->good_id;
+        $sendingItems->keterangan = $request->keterangan;
+        Session::flash('save_sending_items', $sendingItems->save());
+
+        foreach ($request->file('foto') as $_foto) {
+            $detail = new DetailSendingItem;
+            $detail->photo = $_foto->getClientOriginalName();
+            $detail->detail_id = $sendingItems->id;
+            $_foto->move('foto', $detail->photo);
+            $sendingItems->detail_picture()->save($detail);
+        }
+        return redirect()->route('sendingItems.index');
     }
 
     /**
@@ -82,9 +88,11 @@ class SendingItemsController extends Controller
      * @param  \App\Models\SendingItem  $sendingItem
      * @return \Illuminate\Http\Response
      */
-    public function edit(SendingItem $sendingItem)
+    public function edit($id)
     {
-        //
+        $sendingItem = SendingItem::findOrFail($id);
+        $goods = Good::all();
+        return view('pengiriman.edit', compact('sendingItem', 'goods'));
     }
 
     /**
@@ -94,9 +102,36 @@ class SendingItemsController extends Controller
      * @param  \App\Models\SendingItem  $sendingItem
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SendingItem $sendingItem)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            "jenis" => "required",
+            "no_container" => "required",
+            "plat_nomor" => "required",
+            "po" => "required",
+            "good_id" => "required",
+            "keterangan" => "required",
+            "foto" => "required"
+        ]);
+
+        $sendingItems = SendingItem::findOrFail($id);
+        $sendingItems->tanggal = date("Y/m/d");
+        $sendingItems->jenis = $request->jenis;
+        $sendingItems->no_container = $request->no_container;
+        $sendingItems->plat_nomor = $request->plat_nomor;
+        $sendingItems->po = $request->po;
+        $sendingItems->good_id = $request->good_id;
+        $sendingItems->keterangan = $request->keterangan;
+        Session::flash('save_sending_items', $sendingItems->save());
+
+        foreach ($request->file('foto') as $_foto) {
+            $detail = new DetailSendingItem;
+            $detail->photo = $_foto->getClientOriginalName();
+            $detail->detail_id = $sendingItems->id;
+            $_foto->move('foto', $detail->photo);
+            $sendingItems->detail_picture()->save($detail);
+        }
+        return redirect()->route('sendingItems.index');
     }
 
     /**
@@ -105,8 +140,25 @@ class SendingItemsController extends Controller
      * @param  \App\Models\SendingItem  $sendingItem
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SendingItem $sendingItem)
+    public function destroy($id)
     {
-        //
+        $sendingItem = SendingItem::findOrFail($id);
+        Session::flash('delete_sendingItem', $sendingItem->delete());
+        return redirect()->route('sendingItems.index');
+    }
+
+    public function getFoto($id)
+    {
+        $sendingItem = SendingItem::findOrFail($id);
+        return response()->json([
+            'foto' => $sendingItem->detail_picture()->get()
+        ]);
+    }
+
+    public function hapusFoto($id)
+    {
+        $detailSendingItem = DetailSendingItem::findOrFail($id);
+        $detailSendingItem->delete();
+        return redirect()->route('sendingItems.index')->with('Status', 'Gambar Pengiriman Berhasil Dihapus');
     }
 }

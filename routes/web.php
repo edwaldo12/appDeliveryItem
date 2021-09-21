@@ -54,6 +54,14 @@ Route::group(['middleware' => 'auth'], function () {
         Auth::logout();
         return Redirect::to('login');
     });
+
+    Route::get('good_foto/{id}', [GoodController::class, 'getFoto']);
+    Route::get('pengiriman_foto/{id}', [SendingItemsController::class, 'getFoto']);
+    Route::get('container_foto/{id}', [ContainerController::class, 'getFoto']);
+
+    Route::get('hapus_good_foto/{id}', [GoodController::class, 'hapusFoto']);
+    Route::get('hapus_pengiriman_foto/{id}', [SendingItemsController::class, 'hapusFoto']);
+    Route::get('hapus_container_foto/{id}', [ContainerController::class, 'hapusFoto']);
 });
 
 

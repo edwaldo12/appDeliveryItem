@@ -9,4 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 class Container extends Model
 {
     use HasFactory;
+
+    public function detail_container()
+    {
+        return $this->hasMany(DetailContainer::class, "detail_containers", 'id');
+    }
 }

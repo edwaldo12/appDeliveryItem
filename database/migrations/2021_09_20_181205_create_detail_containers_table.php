@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContainerTable extends Migration
+class CreateDetailContainersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateContainerTable extends Migration
      */
     public function up()
     {
-        Schema::create('containers', function (Blueprint $table) {
+        Schema::create('detail_containers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string("address");
-            $table->string('phone');
+            $table->foreignId('detail_containers')->nullable();
+            $table->foreign("detail_containers")->references('id')->on('containers')->nullable();
+            $table->string('foto');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateContainerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('container');
+        Schema::dropIfExists('detail_containers');
     }
 }

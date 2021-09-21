@@ -36,7 +36,7 @@
                                     <th>Nama</th>
                                     <th>Username</th>
                                     <th>Status</th>
-                                    <th>Email</th>
+                                    <th>NIK</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -46,7 +46,7 @@
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->username }}</td>
                                         <td>{{ $user->status }}</td>
-                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $user->nik }}</td>
                                         @if (Auth::user()->status == 'Admin')
                                             <td>
                                                 <a class="btn btn-sm btn-warning"

@@ -21,20 +21,20 @@
         </tr>
         @foreach ($goods as $good)
             <tr>
-                <td width="1%">Nomor Barang</td>
-                <td width="1%">Nama Barang</td>
-                <td width="1%">Nama Supplier</td>
-                <td width="1%">Harga</td>
-                <td width="1%">Stok</td>
+                <td width="1%">Nomor Produk</td>
+                <td width="1%">Nama Produk</td>
+                <td width="1%">Satuan</td>
                 <td width="1%">Tanggal</td>
+                <td width="1%">Jenis</td>
+                <td width="1%">Batch</td>
             </tr>
             <tr>
-                <td>{{ $good->id }}</td>
-                <td>{{ $good->name }}</td>
-                <td>{{ $good->supplier_name }}</td>
-                <td>{{ $good->price }}</td>
-                <td>{{ $good->stock }}</td>
-                <td>{{ $good->created_at->isoFormat('Y-MM-DD') }}</td>
+                <td>{{ $good->nomor_produk }}</td>
+                <td>{{ $good->nama_produk }}</td>
+                <td>{{ $good->satuan }}</td>
+                <td>{{ $good->tanggal }}</td>
+                <td>{{ $good->jenis }}</td>
+                <td>{{ $good->batch }}</td>
         @endforeach
     </table>
     <br>

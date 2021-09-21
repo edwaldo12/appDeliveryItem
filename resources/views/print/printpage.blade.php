@@ -20,34 +20,34 @@
             </td>
         </tr>
         <tr>
-            <td width="1%">Nomor Barang</td>
+            <td width="1%">Nomor Produk</td>
             <td width="1%">:</td>
-            <td>{{ $good->id }}</td>
+            <td>{{ $good->nomor_produk }}</td>
         </tr>
         <tr>
-            <td width="1%">Nama Barang</td>
+            <td width="1%">Nama Produk</td>
             <td width="1%">:</td>
-            <td>{{ $good->name }}</td>
+            <td>{{ $good->nama_produk }}</td>
         </tr>
         <tr>
-            <td width="1%">Nama Supplier</td>
+            <td width="1%">Satuan</td>
             <td width="1%">:</td>
-            <td>{{ $good->supplier_name }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Harga</td>
-            <td width="1%">:</td>
-            <td>{{ $good->price }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Stok</td>
-            <td width="1%">:</td>
-            <td>{{ $good->stock }}</td>
+            <td>{{ $good->satuan }}</td>
         </tr>
         <tr>
             <td width="1%">Tanggal</td>
             <td width="1%">:</td>
-            <td>{{ $good->created_at->isoFormat('Y-MM-DD') }}</td>
+            <td>{{ $good->tanggal }}</td>
+        </tr>
+        <tr>
+            <td width="1%">Jenis</td>
+            <td width="1%">:</td>
+            <td>{{ $good->jenis }}</td>
+        </tr>
+        <tr>
+            <td width="1%">Batch</td>
+            <td width="1%">:</td>
+            <td>{{ $good->batch }}</td>
         </tr>
     </table>
     <br>

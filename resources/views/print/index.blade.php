@@ -44,7 +44,8 @@
                         <table class="table" id="good_table">
                             <thead>
                                 <tr>
-                                    <th>No Barang</th>
+                                    <th>No produk</th>
+                                    <th>Nama Produk</th>
                                     <th>Tanggal</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -52,8 +53,9 @@
                             <tbody>
                                 @foreach ($goods as $good)
                                     <tr>
-                                        <td>{{ $good->name }}</td>
-                                        <td>{{ $good->created_at }}</td>
+                                        <td>{{ $good->nomor_produk }}</td>
+                                        <td>{{ $good->nama_produk }}</td>
+                                        <td>{{ $good->tanggal }}</td>
                                         <td>
                                             <a class="btn btn-sm btn-primary"
                                                 href="{{ route('print.printpage', ['good_id' => $good->id]) }}"><i

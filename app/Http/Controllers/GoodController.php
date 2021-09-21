@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Good;
 use App\Models\Supplier;
 use App\Models\Container;
+use App\Models\DetailGood;
 use Illuminate\Support\Facades\Session;
 
 class GoodController extends Controller
@@ -23,36 +24,47 @@ class GoodController extends Controller
 
     public function store(Request $request)
     {
-        $goods = Good::all();
-
-        // foreach ($goods as $good) {
-        //     if ($request->container_id == $good->container_id && $request->name == $good->name) {
-
-        //         $request->validate([
-        //             'name' => ["required", 'unique:goods']
-        //         ]);
-
-        //         return redirect()->route('goods.index');
-        //     }
-        // }
-
         $request->validate([
-            // "packing" => "required",
-            // 'container_id' => "required",
-            'name' => ["required", 'unique:goods'],
-            "price" => "required",
-            "stock" => "required",
-            "supplier_name" => "required"
+            'nama_produk' => "required",
+            "nomor_produk" => "required",
+            "satuan" => "required",
+            "jenis" => "required",
+            "nomor_produk" => "required",
+            "batch" => "required",
+            "po" => "required",
+            "bs" => "required",
+            "priority_check" => "required",
+            "sampling" => "required",
+            "release" => "required",
+            "rejected" => "required",
+            "keterangan" => "required",
+            "foto" => "required"
         ]);
 
         $good = new Good;
-        // $good->container_id = $request->container_id;
-        // $good->packing = $request->packing;
-        $good->name = $request->name;
-        $good->price = $request->price;
-        $good->supplier_name = $request->supplier_name;
-        $good->stock = $request->stock;
+        $good->nama_produk = $request->nama_produk;
+        $good->nomor_produk = $request->nomor_produk;
+        $good->satuan = $request->satuan;
+        $good->tanggal = date("Y/m/d");
+        $good->jenis = $request->jenis;
+        $good->nomor_produk = $request->nomor_produk;
+        $good->batch = $request->batch;
+        $good->po = $request->po;
+        $good->bs = $request->bs;
+        $good->priority_check = $request->priority_check;
+        $good->sampling = $request->sampling;
+        $good->release = $request->release;
+        $good->rejected = $request->rejected;
+        $good->keterangan = $request->keterangan;
         Session::flash('save_good', $good->save());
+
+        foreach ($request->file('foto') as $_foto) {
+            $detail = new DetailGood();
+            $detail->foto = $_foto->getClientOriginalName();
+            $detail->detail_id = $good->id;
+            $_foto->move('foto', $detail->foto);
+            $good->good_details()->save($detail);
+        }
         return redirect()->route('goods.index');
     }
 
@@ -63,27 +75,53 @@ class GoodController extends Controller
 
     public function edit($id)
     {
-        $container = Container::all();
         $good = Good::findOrFail($id);
-        return view('good.edit', compact('good', 'container'));
+        return view('good.edit', compact('good'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            // "packing" => "required",
-            'name' => ["required", 'unique:goods'],
-            "price" => "required",
-            "stock" => "required",
-            'supplier_name' => "required"
+            'nama_produk' => "required",
+            "nomor_produk" => "required",
+            "satuan" => "required",
+            "jenis" => "required",
+            "nomor_produk" => "required",
+            "batch" => "required",
+            "po" => "required",
+            "bs" => "required",
+            "priority_check" => "required",
+            "sampling" => "required",
+            "release" => "required",
+            "rejected" => "required",
+            "keterangan" => "required",
+            "foto" => "required"
         ]);
+
         $good = Good::findOrFail($id);
-        // $good->packing = $request->packing;
-        $good->name = $request->name;
-        $good->price = $request->price;
-        $good->supplier_name = $request->supplier_name;
-        $good->stock = $request->stock;
-        Session::flash('update_good', $good->save());
+        $good->nama_produk = $request->nama_produk;
+        $good->nomor_produk = $request->nomor_produk;
+        $good->satuan = $request->satuan;
+        $good->tanggal = date("Y/m/d");
+        $good->jenis = $request->jenis;
+        $good->nomor_produk = $request->nomor_produk;
+        $good->batch = $request->batch;
+        $good->po = $request->po;
+        $good->bs = $request->bs;
+        $good->priority_check = $request->priority_check;
+        $good->sampling = $request->sampling;
+        $good->release = $request->release;
+        $good->rejected = $request->rejected;
+        $good->keterangan = $request->keterangan;
+        Session::flash('save_good', $good->save());
+
+        foreach ($request->file('foto') as $_foto) {
+            $detail = new DetailGood();
+            $detail->foto = $_foto->getClientOriginalName();
+            $detail->detail_id = $good->id;
+            $_foto->move('foto', $detail->foto);
+            $good->good_details()->save($detail);
+        }
         return redirect()->route('goods.index');
     }
 
@@ -92,5 +130,20 @@ class GoodController extends Controller
         $good = Good::findOrFail($id);
         Session::flash('delete_good', $good->delete());
         return redirect()->route('goods.index');
+    }
+
+    public function getFoto($id)
+    {
+        $good = Good::findOrFail($id);
+        return response()->json([
+            'foto' => $good->good_details()->get()
+        ]);
+    }
+
+    public function hapusFoto($id)
+    {
+        $detailGood = DetailGood::findOrFail($id);
+        $detailGood->delete();
+        return redirect()->route('goods.index')->with('Status', 'Gambar Barang Berhasil Dihapus');
     }
 }

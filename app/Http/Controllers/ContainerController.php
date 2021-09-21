@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Container;
+use App\Models\DetailContainer;
+use App\Models\Good;
+use App\Models\SendingItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -26,7 +29,8 @@ class ContainerController extends Controller
      */
     public function create()
     {
-        return view('container.create');
+        $sendingItems = SendingItem::all();
+        return view('container.create', compact('sendingItems'));
     }
 
     /**
@@ -38,18 +42,42 @@ class ContainerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            // "packing" => "required",
-            // 'container_id' => "required",
-            'name' => ["required"],
-            "address" => "required",
-            "phone" => "required",
+            "jenis" => "required",
+            "sending_id" => "required",
+            "no_seal_container" => "required",
+            "type_container" => "required",
+            "suhu_sebelum_loading" => "required",
+            "suhu_sesudah_loading" => "required",
+            "kondisi_fisik" => "required",
+            "tidak_berbau_menyengat" => "required",
+            "tidak_kotor" => "required",
+            "tidak_terdapat_bocor" => "required",
+            "status_container" => "required",
+            "foto" => "required"
         ]);
 
         $container = new Container;
-        $container->name = $request->name;
-        $container->address = $request->address;
-        $container->phone = $request->phone;
+        $container->tanggal = date("Y/m/d");
+        $container->jenis = $request->jenis;
+        $container->sending_id = $request->sending_id;
+        $container->no_seal_container = $request->no_seal_container;
+        $container->type_container = $request->type_container;
+        $container->suhu_sebelum_loading = $request->suhu_sebelum_loading;
+        $container->suhu_sesudah_loading = $request->suhu_sesudah_loading;
+        $container->kondisi_fisik = $request->kondisi_fisik;
+        $container->tidak_berbau_menyengat = $request->tidak_berbau_menyengat;
+        $container->tidak_kotor = $request->tidak_kotor;
+        $container->tidak_terdapat_bocor = $request->tidak_terdapat_bocor;
+        $container->status_container = $request->status_container;
         Session::flash('save_container', $container->save());
+
+        foreach ($request->file('foto') as $fotoUpload) {
+            $detail = new DetailContainer();
+            $detail->detail_containers = $container->id;
+            $detail->foto = $fotoUpload->getClientOriginalName();
+            $fotoUpload->move('foto', $detail->foto);
+            $container->detail_container()->save($detail);
+        }
         return redirect()->route('containers.index');
     }
 
@@ -73,7 +101,8 @@ class ContainerController extends Controller
     public function edit($id)
     {
         $container = Container::findOrFail($id);
-        return view('container.edit', compact('container'));
+        $sendingItems = SendingItem::all();
+        return view('container.edit', compact('container', 'sendingItems'));
     }
 
     /**
@@ -86,17 +115,42 @@ class ContainerController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            // "packing" => "required",
-            'name' => ["required", 'unique:goods'],
-            "address" => "required",
-            "phone" => "required",
+            "jenis" => "required",
+            "sending_id" => "required",
+            "no_seal_container" => "required",
+            "type_container" => "required",
+            "suhu_sebelum_loading" => "required",
+            "suhu_sesudah_loading" => "required",
+            "kondisi_fisik" => "required",
+            "tidak_berbau_menyengat" => "required",
+            "tidak_kotor" => "required",
+            "tidak_terdapat_bocor" => "required",
+            "status_container" => "required",
+            "foto" => "required"
         ]);
+
         $container = Container::findOrFail($id);
-        // $container->packing = $request->packing;
-        $container->name = $request->name;
-        $container->address = $request->address;
-        $container->phone = $request->phone;
+        $container->tanggal = date("Y/m/d");
+        $container->jenis = $request->jenis;
+        $container->sending_id = $request->sending_id;
+        $container->no_seal_container = $request->no_seal_container;
+        $container->type_container = $request->type_container;
+        $container->suhu_sebelum_loading = $request->suhu_sebelum_loading;
+        $container->suhu_sesudah_loading = $request->suhu_sesudah_loading;
+        $container->kondisi_fisik = $request->kondisi_fisik;
+        $container->tidak_berbau_menyengat = $request->tidak_berbau_menyengat;
+        $container->tidak_kotor = $request->tidak_kotor;
+        $container->tidak_terdapat_bocor = $request->tidak_terdapat_bocor;
+        $container->status_container = $request->status_container;
         Session::flash('update_container', $container->save());
+
+        foreach ($request->file('foto') as $fotoUpload) {
+            $detail = new DetailContainer();
+            $detail->detail_containers = $container->id;
+            $detail->foto = $fotoUpload->getClientOriginalName();
+            $fotoUpload->move('foto', $detail->foto);
+            $container->detail_container()->save($detail);
+        }
         return redirect()->route('containers.index');
     }
 
@@ -111,5 +165,20 @@ class ContainerController extends Controller
         $container = Container::findOrFail($id);
         Session::flash('delete_container', $container->delete());
         return redirect()->route('containers.index');
+    }
+
+    public function hapusFoto($id)
+    {
+        $detailContainer = DetailContainer::findOrFail($id);
+        $detailContainer->delete();
+        return redirect()->route('containers.index')->with('Status', 'Gambar Kontainer Berhasil Dihapus');
+    }
+
+    public function getFoto($id)
+    {
+        $container = Container::findOrFail($id);
+        return response()->json([
+            'foto' => $container->detail_container()->get()
+        ]);
     }
 }

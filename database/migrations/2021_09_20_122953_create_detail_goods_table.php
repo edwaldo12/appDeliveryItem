@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDetailActivitySendingItemsPictureTable extends Migration
+class CreateDetailGoodsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateDetailActivitySendingItemsPictureTable extends Migration
      */
     public function up()
     {
-        Schema::create('detail_activity_picture', function (Blueprint $table) {
+        Schema::create('detail_goods', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('detail_sending_items_id')->nullable();
-            $table->foreign("detail_sending_items_id")->references('id')->on('detail_sending_items')->nullable();
             $table->string('foto');
+            $table->foreignId('detail_id')->nullable();
+            $table->foreign("detail_id")->references('id')->on('goods')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateDetailActivitySendingItemsPictureTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detail_activity_sending_items_picture');
+        Schema::dropIfExists('detail_goods');
     }
 }

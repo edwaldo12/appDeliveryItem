@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class SendingItemsTable extends Migration
+class CreateDetailSendingItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class SendingItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sending_items', function (Blueprint $table) {
+        Schema::create('detail_sending_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('detail_sending_items_id')->nullable();
-            $table->foreign("detail_sending_items_id")->references('id')->on('detail_sending_items')->nullable();
-            $table->string('receiver');
-            $table->string("photo");
+            $table->foreignId('detail_id')->nullable();
+            $table->foreign("detail_id")->references('id')->on('sending_items')->nullable();
+            $table->string("photo")->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class SendingItemsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('detail_sending_items');
     }
 }

@@ -50,11 +50,11 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
-                                        <label for="email">Email</label>
-                                        <input type="email" class="form-control" name="email" id="email"
-                                            value="{{ old('email') }}" placeholder="Masukkan Email" required>
-                                        <small class="text-danger">{{ $errors->first('email') }}</small>
+                                    <div class="form-group {{ $errors->has('nik') ? 'has-error' : '' }}">
+                                        <label for="nik">NIK</label>
+                                        <input type="number" class="form-control" name="nik" id="nik"
+                                            value="{{ old('nik') }}" placeholder="Masukkan NIK" required>
+                                        <small class="text-danger">{{ $errors->first('nik') }}</small>
                                     </div>
                                     <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                                         <label for="password">Password</label>

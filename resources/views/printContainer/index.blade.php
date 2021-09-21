@@ -45,7 +45,8 @@
                         <table class="table" id="container_table">
                             <thead>
                                 <tr>
-                                    <th>No Kontainer</th>
+                                    <th>ID Pengiriman</th>
+                                    <th>No Seal Kontainer</th>
                                     <th>Tanggal</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -53,8 +54,9 @@
                             <tbody>
                                 @foreach ($containers as $container)
                                     <tr>
-                                        <td>{{ $container->name }}</td>
-                                        <td>{{ $container->created_at }}</td>
+                                        <td>{{ $container->id }}</td>
+                                        <td>{{ $container->no_seal_container }}</td>
+                                        <td>{{ $container->tanggal }}</td>
                                         <td>
                                             <a class="btn btn-sm btn-primary"
                                                 href="{{ route('print.printpagecontainer', ['container_id' => $container->id]) }}"><i

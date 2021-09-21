@@ -41,15 +41,15 @@ class UserController extends Controller
         $request->validate([
             'name' => "required",
             "username" => "required",
-            "email" => "required",
+            "nik" => "required",
             "password" => ["required", 'min:8'],
             "status" => "required"
         ]);
 
         $user = new User;
         $user->name = $request->name;
+        $user->nik = $request->nik;
         $user->username = $request->username;
-        $user->email = $request->email;
         $user->status = $request->status;
         $user->password = Hash::make($request->password);
         Session::flash('save_user', $user->save());
@@ -91,15 +91,15 @@ class UserController extends Controller
         $request->validate([
             'name' => "required",
             "username" => "required",
-            "email" => "required",
+            "nik" => "required",
             "password" => ["required", 'min:8'],
             "status" => "required"
         ]);
 
         $user = User::findOrFail($id);
         $user->name = $request->name;
+        $user->nik = $request->nik;
         $user->username = $request->username;
-        $user->email = $request->email;
         $user->status = $request->status;
         $user->password = Hash::make($request->password);
         Session::flash('update_user', $user->save());

@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Good extends Model
+class DetailContainer extends Model
 {
     use HasFactory;
-    protected $table = "goods";
 
-    public function good_details()
+    public function container()
     {
-        return $this->hasMany(DetailGood::class, "detail_id", "id");
+        return $this->belongsTo(Container::class, 'detail_containers', 'id');
     }
 }
