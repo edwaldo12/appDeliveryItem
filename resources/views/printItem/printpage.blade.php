@@ -16,73 +16,33 @@
     <table border="1" cellpadding="5px" style="width:100%">
         <tr>
             <td colspan="3" style="font-size:18px">
-                BARANG
+                PENGIRIMAN BARANG
             </td>
-        </tr>
-        <tr>
-            <td width="1%">Nomor Produk</td>
-            <td width="1%">:</td>
-            <td>{{ $good->nomor_produk }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Nama Produk</td>
-            <td width="1%">:</td>
-            <td>{{ $good->nama_produk }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Satuan</td>
-            <td width="1%">:</td>
-            <td>{{ $good->satuan }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Tanggal</td>
-            <td width="1%">:</td>
-            <td>{{ $good->tanggal }}</td>
         </tr>
         <tr>
             <td width="1%">Jenis</td>
             <td width="1%">:</td>
-            <td>{{ $good->jenis }}</td>
+            <td>{{ $sendingItem->jenis }}</td>
         </tr>
         <tr>
-            <td width="1%">Batch</td>
+            <td width="1%">No Kontainer</td>
             <td width="1%">:</td>
-            <td>{{ $good->batch }}</td>
+            <td>{{ $sendingItem->no_container }}</td>
+        </tr>
+        <tr>
+            <td width="1%">Plat Nomor</td>
+            <td width="1%">:</td>
+            <td>{{ $sendingItem->plat_nomor }}</td>
         </tr>
         <tr>
             <td width="1%">PO</td>
             <td width="1%">:</td>
-            <td>{{ $good->po }}</td>
+            <td>{{ $sendingItem->po }}</td>
         </tr>
         <tr>
-            <td width="1%">BS</td>
+            <td width="1%">Produk Yang Dikirim</td>
             <td width="1%">:</td>
-            <td>{{ $good->bs }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Check Prioritas</td>
-            <td width="1%">:</td>
-            <td>{{ $good->priority_check }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Sampling</td>
-            <td width="1%">:</td>
-            <td>{{ $good->sampling }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Release</td>
-            <td width="1%">:</td>
-            <td>{{ $good->release }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Rejected</td>
-            <td width="1%">:</td>
-            <td>{{ $good->rejected }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Keterangan</td>
-            <td width="1%">:</td>
-            <td>{{ $good->keterangan }}</td>
+            <td>{{ $sendingItem->good_items->nama_produk }}</td>
         </tr>
     </table>
     <br>

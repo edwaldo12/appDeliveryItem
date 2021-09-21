@@ -40,8 +40,8 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => "required",
-            "username" => "required",
-            "nik" => "required",
+            "username" => ["required", "unique:users"],
+            "nik" => ["required", "unique:users"],
             "password" => ["required", 'min:8'],
             "status" => "required"
         ]);
@@ -90,8 +90,8 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => "required",
-            "username" => "required",
-            "nik" => "required",
+            "username" => ["required", "unique:users"],
+            "nik" => ["required", "unique:users"],
             "password" => ["required", 'min:8'],
             "status" => "required"
         ]);

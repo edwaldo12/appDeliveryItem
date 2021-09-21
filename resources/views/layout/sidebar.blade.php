@@ -9,7 +9,7 @@
                  <li class="header">Main Navigation</li>
                  <li>
                      <a href="{{ route('users.index') }}"><i class="fa fa-cube"></i>
-                         <span>Admin</span>
+                         <span>User</span>
                      </a>
                  </li>
                  <li>
@@ -17,16 +17,20 @@
                          <span>Barang</span></a>
                  </li>
                  <li>
-                     <a href="{{ route('containers.index') }}"><i class="fa fa-cube"></i>
-                         <span>Kontainer</span></a>
-                 </li>
-                 <li>
                      <a href="{{ route('sendingItems.index') }}"><i class="fa fa-cube"></i>
                          <span>Pengiriman Barang</span></a>
                  </li>
                  <li>
+                     <a href="{{ route('containers.index') }}"><i class="fa fa-cube"></i>
+                         <span>Kontainer</span></a>
+                 </li>
+                 <li>
                      <a href="{{ route('print.index') }}"><i class="fa fa-cube"></i>
                          <span>Print Laporan Barang</span></a>
+                 </li>
+                 <li>
+                     <a href="{{ route('printSendingItem.index') }}"><i class="fa fa-cube"></i>
+                         <span>Print Laporan Pengiriman</span></a>
                  </li>
                  <li>
                      <a href="{{ route('printContainer.index') }}"><i class="fa fa-cube"></i>

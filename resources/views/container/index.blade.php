@@ -31,7 +31,7 @@
             <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title">Daftar Admin</h3>
+                        <h3 class="box-title">Pengecekan Kontainer</h3>
                     </div>
                     <div class="box-body">
                         <table class="table" id="containers_table">

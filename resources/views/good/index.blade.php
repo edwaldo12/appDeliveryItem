@@ -29,7 +29,7 @@
             <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title">Daftar Barang</h3>
+                        <h3 class="box-title">Pengecekan Barang</h3>
                     </div>
                     <div class="box-body">
                         <table class="table" id="good_table">

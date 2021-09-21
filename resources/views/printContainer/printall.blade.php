@@ -13,22 +13,38 @@
     {{-- <img src="{{ url('logo/logo_gas.png') }}" alt="" width="100px" height="100px"
         style="position: relative;margin-left:45%"> --}}
 
-    <table border="1" cellpadding="5px" style="width:100%">
+    <table border="1" cellpadding="5px" style="width:100%" class="table table-striped">
         <tr>
-            <td colspan="3" style="font-size:18px">
+            <td colspan="11" style="font-size:18px">
                 KONTAINER
             </td>
         </tr>
         @foreach ($containers as $container)
             <tr>
-                <td width="1%">Nama Kontainer</td>
-                <td width="1%">Alamat Kantor Kontainer</td>
-                <td width="1%">Nomor Kantor Kontainer</td>
+                <td width="1%">Tanggal</td>
+                <td width="1%">Jenis Kontainer</td>
+                <td width="1%">No Seal Kontainer</td>
+                <td width="1%">Tipe Kontainer</td>
+                <td width="1%">Suhu Sebelum Loading</td>
+                <td width="1%">Suhu Sesudah Loading</td>
+                <td width="1%">Kondisi Fisik</td>
+                <td width="1%">Berbau Menyengat</td>
+                <td width="1%">Kondisi Barang</td>
+                <td width="1%">Kebocoran Barang</td>
+                <td width="1%">Status Kontainer</td>
             </tr>
             <tr>
-                <td>{{ $container->name }}</td>
-                <td>{{ $container->phone }}</td>
-                <td>{{ $container->address }}</td>
+                <td>{{ $container->tanggal }}</td>
+                <td>{{ $container->jenis }}</td>
+                <td>{{ $container->no_seal_container }}</td>
+                <td>{{ $container->type_container }}</td>
+                <td>{{ $container->suhu_sebelum_loading }}</td>
+                <td>{{ $container->suhu_sesudah_loading }}</td>
+                <td>{{ $container->kondisi_fisik }}</td>
+                <td>{{ $container->tidak_berbau_menyengat }}</td>
+                <td>{{ $container->tidak_kotor }}</td>
+                <td>{{ $container->tidak_terdapat_bocor }}</td>
+                <td>{{ $container->status_container }}</td>
             </tr>
         @endforeach
     </table>

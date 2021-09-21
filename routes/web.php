@@ -8,6 +8,7 @@ use App\Http\Controllers\PrintController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContainerController;
 use App\Http\Controllers\PrintContainerController;
+use App\Http\Controllers\PrintSendingItemsController;
 use App\Http\Controllers\SendingItemsController;
 use App\Http\Controllers\SupplierController;
 use App\Models\PreOrder;
@@ -46,6 +47,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('printpagecontainer/{container_id}', [PrintContainerController::class, 'print'])->name('print.printpagecontainer');
     Route::get('printcontainerall', [PrintContainerController::class, 'printcontainerall'])->name('print.printcontainerall');
 
+    Route::resource('printSendingItem', PrintSendingItemsController::class);
+    Route::get('printSendingItemPage/{sendingItem_id}', [PrintSendingItemsController::class, 'print'])->name('print.printpageitem');
+    Route::get('printSendingItemAll', [PrintSendingItemsController::class, 'printSendingItemAll'])->name('print.printallpageitem');
 
     // Route::get('doneOrder/{id}', [PreOrderController::class, 'done'])->name('doneOrder');
     // Route::get('cancelOrder/{id}', [PreOrderController::class, 'cancel'])->name('cancelOrder');

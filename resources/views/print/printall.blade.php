@@ -15,7 +15,7 @@
 
     <table border="1" cellpadding="5px" style="width:100%">
         <tr>
-            <td colspan="6" style="font-size:18px">
+            <td colspan="13" style="font-size:18px">
                 BARANG
             </td>
         </tr>
@@ -27,6 +27,13 @@
                 <td width="1%">Tanggal</td>
                 <td width="1%">Jenis</td>
                 <td width="1%">Batch</td>
+                <td width="1%">PO</td>
+                <td width="1%">BS</td>
+                <td width="1%">Check Prioritas</td>
+                <td width="1%">Sampling</td>
+                <td width="1%">Release</td>
+                <td width="1%">Rejected</td>
+                <td width="1%">Keterangan</td>
             </tr>
             <tr>
                 <td>{{ $good->nomor_produk }}</td>
@@ -35,6 +42,13 @@
                 <td>{{ $good->tanggal }}</td>
                 <td>{{ $good->jenis }}</td>
                 <td>{{ $good->batch }}</td>
+                <td>{{ $good->po }}</td>
+                <td>{{ $good->bs }}</td>
+                <td>{{ $good->priority_check }}</td>
+                <td>{{ $good->sampling }}</td>
+                <td>{{ $good->release }}</td>
+                <td>{{ $good->rejected }}</td>
+                <td>{{ $good->keterangan }}</td>
         @endforeach
     </table>
     <br>

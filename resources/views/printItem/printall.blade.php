@@ -13,77 +13,32 @@
     {{-- <img src="{{ url('logo/logo_gas.png') }}" alt="" width="100px" height="100px"
         style="position: relative;margin-left:45%"> --}}
 
-    <table border="1" cellpadding="5px" style="width:100%">
+    <table border="1" cellpadding="5px" style="width:100%" class="table table-striped">
         <tr>
-            <td colspan="3" style="font-size:18px">
-                BARANG
+            <td colspan="7" style="font-size:18px">
+                PENGIRIMAN BARANG
             </td>
         </tr>
-        <tr>
-            <td width="1%">Nomor Produk</td>
-            <td width="1%">:</td>
-            <td>{{ $good->nomor_produk }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Nama Produk</td>
-            <td width="1%">:</td>
-            <td>{{ $good->nama_produk }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Satuan</td>
-            <td width="1%">:</td>
-            <td>{{ $good->satuan }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Tanggal</td>
-            <td width="1%">:</td>
-            <td>{{ $good->tanggal }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Jenis</td>
-            <td width="1%">:</td>
-            <td>{{ $good->jenis }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Batch</td>
-            <td width="1%">:</td>
-            <td>{{ $good->batch }}</td>
-        </tr>
-        <tr>
-            <td width="1%">PO</td>
-            <td width="1%">:</td>
-            <td>{{ $good->po }}</td>
-        </tr>
-        <tr>
-            <td width="1%">BS</td>
-            <td width="1%">:</td>
-            <td>{{ $good->bs }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Check Prioritas</td>
-            <td width="1%">:</td>
-            <td>{{ $good->priority_check }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Sampling</td>
-            <td width="1%">:</td>
-            <td>{{ $good->sampling }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Release</td>
-            <td width="1%">:</td>
-            <td>{{ $good->release }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Rejected</td>
-            <td width="1%">:</td>
-            <td>{{ $good->rejected }}</td>
-        </tr>
-        <tr>
-            <td width="1%">Keterangan</td>
-            <td width="1%">:</td>
-            <td>{{ $good->keterangan }}</td>
-        </tr>
+        @foreach ($sendingItems as $sendingItem)
+            <tr>
+                <td width="1%">Tanggal</td>
+                <td width="1%">Jenis</td>
+                <td width="1%">No Kontainer</td>
+                <td width="1%">Plat Nomor</td>
+                <td width="1%">PO</td>
+                <td width="1%">Nama Produk</td>
+                <td width="1%">Keterangan</td>
+            </tr>
+            <tr>
+                <td>{{ $sendingItem->tanggal }}</td>
+                <td>{{ $sendingItem->jenis }}</td>
+                <td>{{ $sendingItem->no_container }}</td>
+                <td>{{ $sendingItem->plat_nomor }}</td>
+                <td>{{ $sendingItem->po }}</td>
+                <td>{{ $sendingItem->good_id }}</td>
+                <td>{{ $sendingItem->keterangan }}</td>
+            </tr>
+        @endforeach
     </table>
     <br>
 
