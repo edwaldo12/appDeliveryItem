@@ -20,19 +20,59 @@
             </td>
         </tr>
         <tr>
-            <td width="1%">Nama Kontainer</td>
+            <td width="1%">Tanggal</td>
             <td width="1%">:</td>
-            <td>{{ $container->name }}</td>
+            <td>{{ $container->tanggal }}</td>
         </tr>
         <tr>
-            <td width="1%">Alamat Kantor Kontainer</td>
+            <td width="1%">Jenis Kontainer</td>
             <td width="1%">:</td>
-            <td>{{ $container->address }}</td>
+            <td>{{ $container->jenis }}</td>
         </tr>
         <tr>
-            <td width="1%">Nomor Kantor Kontainer</td>
+            <td width="1%">No Seal Container</td>
             <td width="1%">:</td>
-            <td>{{ $container->phone }}</td>
+            <td>{{ $container->no_seal_container }}</td>
+        </tr>
+        <tr>
+            <td width="1%">Tipe Kontainer</td>
+            <td width="1%">:</td>
+            <td>{{ $container->type_container }}</td>
+        </tr>
+        <tr>
+            <td width="1%">Suhu Sebelum Loading</td>
+            <td width="1%">:</td>
+            <td>{{ $container->suhu_sebelum_loading }}</td>
+        </tr>
+        <tr>
+            <td width="1%">Suhu Sesudah Loading</td>
+            <td width="1%">:</td>
+            <td>{{ $container->suhu_sesudah_loading }}</td>
+        </tr>
+        <tr>
+            <td width="1%">Kondisi Fisik</td>
+            <td width="1%">:</td>
+            <td>{{ $container->kondisi_fisik }}</td>
+        </tr>
+        <tr>
+            <td width="1%">Tidak Berbau Menyengat</td>
+            <td width="1%">:</td>
+            <td>{{ $container->tidak_berbau_menyengat }}</td>
+        </tr>
+        <tr>
+            <td width="1%">Tidak Kotor</td>
+            <td width="1%">:</td>
+            <td>{{ $container->tidak_kotor }}</td>
+        </tr>
+        <tr>
+            <td width="1%">Tidak Terdapat Bocor</td>
+            <td width="1%">:</td>
+            <td>{{ $container->tidak_terdapat_bocor }}</td>
+        </tr>
+        <tr>
+            <td width="1%">Status Kontainer</td>
+            <td width="1%">:</td>
+            <td>{{ $container->status_container }}</td>
         </tr>
     </table>
     <br>
