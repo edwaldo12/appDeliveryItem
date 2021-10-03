@@ -22,7 +22,9 @@
     <section class="content">
         <div class="row" style="margin-bottom: 15px">
             <div class="col-md-12">
-                <a href="{{ route('containers.create') }}" class="btn btn-primary">Tambah Kontainer</a>
+                @if (Auth::user()->status == 'Admin')
+                    <a href="{{ route('containers.create') }}" class="btn btn-primary">Tambah Kontainer</a>
+                @endif
             </div>
         </div>
         <div class="row">
